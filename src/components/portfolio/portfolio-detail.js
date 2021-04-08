@@ -5,13 +5,9 @@ export default class PortfolioDetail extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       portfolioItem: {}
-    }
-
-
-
+    };
   }
 
   componentWillMount() {
@@ -28,8 +24,8 @@ export default class PortfolioDetail extends Component {
       )
       .then(response => {
         this.setState({
-        portfolioItem: response.data.portfolio_item
-        })
+          portfolioItem: response.data.portfolio_item
+        });
       })
       .catch(error => {
         console.log("getportfolioitem error", error);
@@ -45,31 +41,34 @@ export default class PortfolioDetail extends Component {
       name,
       thumb_image_url,
       url
-    } = this.state.portfolioItem
+    } = this.state.portfolioItem;
 
-const bannerStyles = {
-  backgroundImage: "url(" + banner_image_url + ")",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center center"
-}
+    const bannerStyles = {
+      backgroundImage: "url(" + banner_image_url + ")",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center center"
+    }
 
+    const logoStyles = {
+      width: "200px"
+    }
 
     return (
-      <div className="portfolio-detail-wrapper">
-        <div className="banner">
-          <img src={logo_url}/>
-        </div>
+      <div className="portoflio-detail-wrapper">
+        <div className="banner" style={bannerStyles}>
+          <img src={logo_url} style={logoStyles}/>
+        </div>  
 
         <div className="portfolio-detail-description-wrapper">
           <div className="description">{description}</div>
-        </div>
+        </div>   
 
         <div className="bottom-content-wrapper">
           <a href={url} className="site-link" target="_blank">
             Visit {name}
           </a>
-        </div>
+        </div>      
       </div>
     );
   }

@@ -13,42 +13,44 @@ export default class BlogDetail extends Component {
       currentId: this.props.match.params.slug,
       blogItem: {},
       editMode: false
-
     };
 
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleFeaturedImageDelete = this.handleFeaturedImageDelete.bind(this);
-    this.handleUpdateFormSubmission = this.handleUpdateFormSubmission.bind(this)
+    this.handleUpdateFormSubmission = this.handleUpdateFormSubmission.bind(
+      this
+    );
   }
-
 
   handleUpdateFormSubmission(blog) {
     this.setState({
-        blogItem: blog,
-        editMode: false
-    })
+      blogItem: blog,
+      editMode: false
+    });
   }
 
   handleFeaturedImageDelete() {
-      this.setState({
-          blogItem: {
-              featured_image_url: ""
-          }
-      })
+    this.setState({
+      blogItem: {
+        featured_image_url: ""
+      }
+    });
   }
 
-
-
-
   handleEditClick() {
-    console.log("handle edit clicked")       
-    if(this.props.loggedInStatus === "LOGGED_IN")    
-    this.setState({ editMode: true });
+    console.log("handle edit clicked");
+    if (this.props.loggedInStatus === "LOGGED_IN") {    
+      this.setState({ editMode: true });
+    }
   }
 
   getBlogItem() {
     axios
-      .get(`https://davidmenefield.devcamp.space/portfolio/portfolio_blogs/${this.state.currentId}` )
+      .get(
+        `https://davidmenefield.devcamp.space/portfolio/portfolio_blogs/${
+          this.state.currentId
+        }`
+      )
       .then(response => {
         this.setState({
           blogItem: response.data.portfolio_blog
@@ -72,13 +74,14 @@ export default class BlogDetail extends Component {
     } = this.state.blogItem;
 
     const contentManager = () => {
-      if (this.state.editMode) {
+      if (this.state.editMode ) {
         return (
-          <BlogForm 
-          editMode={this.state.editMode}
-           blog={this.state.blogItem}
-           handleFeaturedImageDelete={this.handleFeaturedImageDelete} 
-           handleUpdateFormSubmission={this.handleUpdateFormSubmission}/>
+          <BlogForm
+            handleFeaturedImageDelete={this.handleFeaturedImageDelete}
+            handleUpdateFormSubmission={this.handleUpdateFormSubmission}
+            editMode={this.state.editMode}
+            blog={this.state.blogItem}
+          />
         );
       } else {
         return (

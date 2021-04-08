@@ -57,11 +57,14 @@ export default class PortfolioManager extends Component {
     this.getPortfolioItems();
   }
 
+
   handleNewFormSubmission(portfolioItem) {
     this.setState({
       portfolioItems: [portfolioItem].concat(this.state.portfolioItems)
     });
   }
+
+  
 
   handleFormSubmissionError(error) {
     console.log("handleFormSubmissionError error", error);
@@ -113,4 +116,3 @@ export default class PortfolioManager extends Component {
     );
   }
 }
-

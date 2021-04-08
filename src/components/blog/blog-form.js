@@ -4,7 +4,6 @@ import DropzoneComponent from "react-dropzone-component";
 
 import RichTextEditor from "../forms/rich-text-editor";
 
-
 export default class BlogForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +14,7 @@ export default class BlogForm extends Component {
       blog_status: "",
       content: "",
       featured_image: "",
-      apiUrl:  `https://davidmenefield.devcamp.space/portfolio/portfolio_blogs` ,
+      apiUrl: "https://davidmenefield.devcamp.space/portfolio/portfolio_blogs",
       apiAction: "post"
     };
 
@@ -24,41 +23,41 @@ export default class BlogForm extends Component {
     this.handleRichTextEditorChange = this.handleRichTextEditorChange.bind(
       this
     );
-      this.deleteImage = this.deleteImage.bind(this);
+
     this.componentConfig = this.componentConfig.bind(this);
     this.djsConfig = this.djsConfig.bind(this);
     this.handleFeaturedImageDrop = this.handleFeaturedImageDrop.bind(this);
-    
-
+    this.deleteImage = this.deleteImage.bind(this);
     this.featuredImageRef = React.createRef();
   }
 
-
   deleteImage(imageType) {
     axios
-    .delete(`https://davidmenefield.devcamp.space/portfolio/delete-portfolio-blog-image/${this.props.blog.id}?image_type=${imageType}`,
-    { withCredentials: true }
-    ).then(response => {
-      console.log("checking response", response)
-     this.props.handleFeaturedImageDelete();
-    }).catch(error => {
-        console.log("delete image error", error);
-    })
-    
-}
-
+      .delete(
+        `https://api.devcamp.space/portfolio/delete-portfolio-blog-image/${
+          this.props.blog.id
+        }?image_type=${imageType}`,
+        { withCredentials: true }
+      )
+      .then(response => {
+        this.props.handleFeaturedImageDelete();
+      })
+      .catch(error => {
+        console.log("deleteImage error", error);
+      });
+  }
 
   componentWillMount() {
     if (this.props.editMode) {
       this.setState({
         id: this.props.blog.id,
         title: this.props.blog.title,
-        status: this.props.blog.status,
+        blog_status: this.props.blog.blog_status,
         content: this.props.blog.content,
-        apiUrl: `https://davidmenefield.devcamp.space/portfolio/portfolio_blogs?page=${this
-        .state.currentPage}`,
+        apiUrl: `https://davidmenefield.devcamp.space/portfolio/portfolio_blogs/${
+          this.props.blog.id
+        }`,
         apiAction: "patch"
-
       });
     }
   }
@@ -107,10 +106,10 @@ export default class BlogForm extends Component {
 
   handleSubmit(event) {
     axios({
-        method: this.state.apiAction,
-        url: this.state.apiUrl,
-        data: this.buildForm,
-        withCredentials: true
+      method: this.state.apiAction,
+      url: this.state.apiUrl,
+      data: this.buildForm(),
+      withCredentials: true
     })
       .then(response => {
         if (this.state.featured_image) {
@@ -125,14 +124,12 @@ export default class BlogForm extends Component {
         });
 
         if (this.props.editMode) {
-          this.props.handleUpdateFormSubmission(
-            response.data.portfolio_blog
-          )
+          // Update blog detail
+          this.props.handleUpdateFormSubmission(response.data.portfolio_blog);
         } else {
-
-        this.props.handleSuccessfullFormSubmission(
-          response.data.portfolio_blog
-        );
+          this.props.handleSuccessfullFormSubmission(
+            response.data.portfolio_blog
+          );
         }
       })
       .catch(error => {
@@ -182,24 +179,28 @@ export default class BlogForm extends Component {
         </div>
 
         <div className="image-uploaders">
-          {this.props.editMode && this.props.blog.featured_image_url ? 
+          {this.props.editMode && this.props.blog.featured_image_url ? (
             <div className="portfolio-manager-image-wrapper">
-                <img src={this.props.blog.featured_image_url} />
+              <img src={this.props.blog.featured_image_url} />
 
-            <div className="image-removal-link">
-                <a onClick={() => this.deleteImage("featured_image")}>Remove me</a>
-           </div>
-          </div> 
-           :  
-          <DropzoneComponent
-            ref={this.featuredImageRef}
-            config={this.componentConfig()}
-            djsConfig={this.djsConfig()}
-            eventHandlers={this.handleFeaturedImageDrop()}
-          >
-            <div className="dz-message">Featured Image</div>
-          </DropzoneComponent>}
-          </div>
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("featured_image")}>
+                  Remove file
+                </a>
+              </div>
+            </div>
+          ) : (
+            <DropzoneComponent
+              ref={this.featuredImageRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleFeaturedImageDrop()}
+            >
+              <div className="dz-message">Featured Image</div>
+            </DropzoneComponent>
+          )}
+        </div>
+
         <button className="btn">Save</button>
       </form>
     );

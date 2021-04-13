@@ -3,13 +3,7 @@ import contactPagePicture from "../../../static/assets/images/auth/login.jpg";
 export default function() {
   return (
       <div className="content-page-wrapper">
-      <div className="left-column" >    contentcontentcontentcontentcontentcontentcontentcontentcontentcon
-    tentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentc
-    ontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
-    contentcontentcontentcontentcontentco
-    ntentcontentcontentcontentcontentcontentcontentcontent
-    contentcontentcontentcontentcontentcontentcontentcontentcontentcontentco
-    ntentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
+      <div className="left-column" >    Hello World! My name is David Menefield Jr. and I am a fullstack web developer from Los Angeles California!
      </div>
         <div 
         className="right-column"

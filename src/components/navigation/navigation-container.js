@@ -52,9 +52,9 @@ const NavigationComponent = props => {
         </div>
 
         <div className="nav-link-wrapper">
-          <NavLink to="/blog" activeClassName="nav-link-active">
-            Blog
-          </NavLink>
+          <a href='//linkedin.com/in/david-menefield-6b262b113/' activeClassName="nav-link-active">
+            Linkedin
+          </a>
         </div>
 
         {props.loggedInStatus === "LOGGED_IN" ? (

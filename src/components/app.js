@@ -115,7 +115,8 @@ export default class App extends Component {
               <Route path="/contact" component={Contact} />
 
               <Route
-                path="/blog"
+                path="http://dm-react-portfolio.herokuapp.com/
+                "
                 render={props => (
                   <Blog {...props} loggedInStatus={this.state.loggedInStatus} />
                 )}

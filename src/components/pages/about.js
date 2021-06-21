@@ -1,5 +1,5 @@
 import React from 'react'
-import contactPagePicture from "../../../static/assets/images/auth/profile-pic.png";
+import contactPagePicture from "../../../static/assets/images/auth/profile-pic.pngy";
 export default function() {
   return (
       <div className="content-page-wrapper">

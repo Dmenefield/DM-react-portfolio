@@ -2,7 +2,7 @@
   "name": "david-menefield-react-portfolio",
   "version": "1.0.0",
   "engines": {
-    "node": "6.11.1"
+    "node": "14.17.1"
   },
   "description": "Basic skeleton codebase for React/Redux/Router applications.",
   "scripts": {
